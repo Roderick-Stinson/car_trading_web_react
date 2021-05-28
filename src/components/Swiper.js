@@ -14,7 +14,6 @@ SwiperCore.use([Navigation, Thumbs]);
 
 const CarSwiperIndex = ({images}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
     return (
         <>
             <Swiper
@@ -26,7 +25,7 @@ const CarSwiperIndex = ({images}) => {
                 thumbs={{swiper: thumbsSwiper}}
                 className="mySwiper2"
             >
-                {images.map(item => <SwiperSlide><img src={item}/></SwiperSlide>)}
+                {images.map((item, index) => <SwiperSlide key={index}><img src={item} alt={'加载中'}/></SwiperSlide>)}
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
@@ -38,21 +37,20 @@ const CarSwiperIndex = ({images}) => {
                 watchSlidesProgress={true}
                 className="mySwiper"
             >
-                {images.map((item,index) => <SwiperSlide><img src={item}/></SwiperSlide>)}
+                {images.map((item, index) => <SwiperSlide key={index}><img src={item} alt={'加载中'}/></SwiperSlide>)}
             </Swiper>
         </>
     )
 }
 
-const CarSwiper = ({test}) => {
-    const [images] = useState(test)
+const CarSwiper = ({imagesSrc}) => {
+    const [images] = useState(imagesSrc)
 
     if (images.length > 0) {
         return (
-            <CarSwiperIndex images={images} />
+            <CarSwiperIndex images={images}/>
         )
-    }
-    else
+    } else
         return (
             <></>
         )

@@ -12,7 +12,7 @@ html,body,#root{
 .ant-layout-header,
 .ant-layout-footer {
     color: #fff;
-    background: #7dbcea;
+    /*background: #7dbcea;*/
 }
 [data-theme="dark"] .ant-layout-header {
     background: #6aa0c7;
@@ -26,15 +26,15 @@ html,body,#root{
 .ant-layout-sider {
     color: #fff;
     line-height: 120px;
-    background: #3ba0e9;
+    /*background: #3ba0e9;*/
 }
 [data-theme="dark"] .ant-layout-sider {
     background: #3499ec;
 }
 .ant-layout-content {
-    color: #fff;
+    color: #000;
     line-height: 120px;
-    background: rgba(16, 142, 233, 1);
+    /*background: rgba(16, 142, 233, 1);*/
 }
 [data-theme="dark"] .ant-layout-content {
     background: #107bcb;
