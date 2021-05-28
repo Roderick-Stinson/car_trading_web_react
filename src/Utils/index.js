@@ -2,8 +2,7 @@ import axios from 'axios'
 
 const $http = axios.create({
     baseURL: '',
-    timeout: 1000,
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    timeout: 5000
 });
 
 // 添加请求拦截器
