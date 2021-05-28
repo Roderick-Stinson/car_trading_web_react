@@ -8,6 +8,8 @@ import $http from "../Utils";
 
 import CarSwiper from "../components/Swiper";
 
+import {prefix} from "../config";
+
 const {Header, Footer, Sider, Content} = Layout
 
 const CarInfo = () => {
@@ -26,7 +28,7 @@ const CarInfo = () => {
                 setCarData(res)
                 setCarRegDate(res['regDate'])
                 res['images'].forEach(img =>
-                    imagesSrc.push('http://localhost:4567/' + img)
+                    imagesSrc.push(prefix + img)
                 );
                 setImages(imagesSrc)
             })

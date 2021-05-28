@@ -5,6 +5,8 @@ import {Card} from 'antd';
 import {Row, Col} from 'antd';
 import {useEffect, useState} from "react";
 
+import {prefix} from "../config";
+
 const {Meta} = Card;
 
 const MyCard = ({id, name, img}) => {
@@ -38,7 +40,7 @@ const HomePage = () => {
 
     return (
         <Row gutter={16}>
-            {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']} img={'http://localhost:4567/' + item['images']}/></Col>)}
+            {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']} img={prefix + item['images']}/></Col>)}
         </Row>
     )
 }
