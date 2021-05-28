@@ -38,7 +38,8 @@ const CarInfo = () => {
             <Layout>
                 <Sider width={document.documentElement.clientWidth / 2}><CarSwiper imagesSrc={imagesSrc}/> </Sider>
                 <Content>
-                    {carRegDate.year}
+                    <p>{carData['price']}</p>
+                    <p>{carRegDate['year']}</p>
                 </Content>
             </Layout>
             <Footer>Footer</Footer>

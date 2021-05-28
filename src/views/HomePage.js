@@ -10,12 +10,10 @@ const {Meta} = Card;
 const MyCard = ({id, name, img}) => {
 
     const history = useHistory()
-    console.log(img)
 
     return (
         <Card
             hoverable={true}
-            style={{width: 360}}
             cover={<img alt={'加载中'} src={img}/>}
             onClick={() => {
                 history.push('/carInfo/' + id)
@@ -39,9 +37,8 @@ const HomePage = () => {
     }, [])
 
     return (
-        <Row>
-            {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']}
-                                                                img={'http://localhost:4567/' + item['images']}/></Col>)}
+        <Row gutter={16}>
+            {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']} img={'http://localhost:4567/' + item['images']}/></Col>)}
         </Row>
     )
 }

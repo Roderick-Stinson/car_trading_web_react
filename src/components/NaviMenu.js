@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import { Menu } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
 import {useState} from "react";
@@ -14,18 +15,20 @@ const NaviMenu = () => {
             onClick={handleClick}
             selectedKeys={[current]}
             mode={"horizontal"}>
-            <Menu.Item key="mail" icon={<MailOutlined />}>
+            <Menu.Item key="" icon={<MailOutlined />}>
+                <Link to={'/'} />
                 我要买车
             </Menu.Item>
-            <Menu.Item key="app" icon={<AppstoreOutlined />}>
+            <Menu.Item key="sell" icon={<AppstoreOutlined />}>
+                <Link to={'/sell'} />
                 我要卖车
             </Menu.Item>
-            <Menu.Item key="app" icon={<AppstoreOutlined />}>
+            <Menu.Item key="management" icon={<AppstoreOutlined />}>
+                <Link to={'/management'} />
                 后台管理系统
             </Menu.Item>
         </Menu>
     )
-
 }
 
 export default NaviMenu
