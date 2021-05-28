@@ -9,7 +9,6 @@ import {
     Route,
 } from "react-router-dom"
 
-
 const App = () => {
     return (
         <Router>

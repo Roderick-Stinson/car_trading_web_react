@@ -1,26 +1,48 @@
 import {useHistory} from 'react-router-dom'
+import $http from "../Utils";
 
 import {Card} from 'antd';
+import {Row, Col} from 'antd';
+import {useEffect, useState} from "react";
 
 const {Meta} = Card;
 
-const HomePage = () => {
+const MyCard = ({id, name, img}) => {
 
     const history = useHistory()
-    const id = 1
-    let arr = [1, 2, 3, 4, 5];
+    console.log(img)
 
     return (
-        arr.map(item => (
-            <Card
-                hoverable={true}
-                style={{width: 240}}
-                cover={<img alt={'example'} src={'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'}/>}
-                onClick={() => {history.push('/carInfo/'+id)}}
-            >
-                <Meta title="Europe Street beat" description={item}/>
-            </Card>
-        ))
+        <Card
+            hoverable={true}
+            style={{width: 360}}
+            cover={<img alt={'加载中'} src={img}/>}
+            onClick={() => {
+                history.push('/carInfo/' + id)
+            }}
+        >
+            <Meta title={name}/>
+        </Card>
+    )
+}
+
+
+const HomePage = () => {
+
+    const [carList, setCarList] = useState([])
+
+    useEffect(() => {
+        $http.get('/api/car/list')
+            .then(res => {
+                setCarList(res)
+            })
+    }, [])
+
+    return (
+        <Row>
+            {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']}
+                                                                img={'http://localhost:4567/' + item['images']}/></Col>)}
+        </Row>
     )
 }
 

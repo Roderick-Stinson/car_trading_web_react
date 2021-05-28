@@ -1,8 +1,6 @@
 import { Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
 import {useState} from "react";
-
-const { SubMenu } = Menu;
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('mail')
@@ -17,10 +15,13 @@ const NaviMenu = () => {
             selectedKeys={[current]}
             mode={"horizontal"}>
             <Menu.Item key="mail" icon={<MailOutlined />}>
-                Navigation One
+                我要买车
             </Menu.Item>
             <Menu.Item key="app" icon={<AppstoreOutlined />}>
-                Navigation Two
+                我要卖车
+            </Menu.Item>
+            <Menu.Item key="app" icon={<AppstoreOutlined />}>
+                后台管理系统
             </Menu.Item>
         </Menu>
     )
