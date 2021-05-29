@@ -10,6 +10,7 @@ const tokenReducer = (state = {Authorization: 'initial'}, action) => {
 }
 
 export const setToken = (token) => {
+    localStorage.setItem('Authorization', token)
     return {
         type: 'SET_TOKEN',
         data: {
@@ -19,6 +20,7 @@ export const setToken = (token) => {
 }
 
 export const removeToken = () => {
+    localStorage.removeItem('Authorization')
     return {
         type: 'REMOVE_TOKEN',
         data: {
@@ -26,3 +28,5 @@ export const removeToken = () => {
         }
     }
 }
+
+export default tokenReducer

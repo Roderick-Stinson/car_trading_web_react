@@ -1,1 +1,0 @@
-export const prefix = 'http://8.140.11.73:4567/'

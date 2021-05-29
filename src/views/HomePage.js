@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom'
 
 import $http from "../Utils";
-import {prefix} from "../Utils/imgConfig";
+import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
 
 import {Pagination} from 'antd';
 import {Card} from 'antd';
@@ -36,13 +36,13 @@ const HomePage = () => {
     useEffect(() => {
         $http.get('/api/car/list', {params: {offset: offset}})
             .then(res => {
-                setCarList(res)
+                setCarList(res.data)
             })
     }, [offset])
     useEffect(() => {
         $http.get('/api/car/count')
             .then(res => {
-                setCarCount(res)
+                setCarCount(res.data)
             })
     }, [])
 
@@ -55,7 +55,7 @@ const HomePage = () => {
             <>
                 <Row gutter={16}>
                     {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']}
-                                                                                    img={prefix + item['images']}/></Col>)}
+                                                                                    img={imgScrPrefix + item['images']}/></Col>)}
                 </Row>
                 <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChange} total={carCount}/>
             </>

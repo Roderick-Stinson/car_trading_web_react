@@ -26,7 +26,7 @@ const LoginDialog = () => {
                 password: values['password']
             }
         }).then(res => {
-            console.log(res)
+            console.log(res.data)
         })
     };
 

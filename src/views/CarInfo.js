@@ -8,7 +8,7 @@ import $http from "../Utils";
 
 import CarSwiper from "../components/Swiper";
 
-import {prefix} from "../Utils/imgConfig";
+import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
 
 const {Header, Footer, Sider, Content} = Layout
 
@@ -25,10 +25,10 @@ const CarInfo = () => {
     useEffect(() => {
         $http.get('/api/car/' + id)
             .then(res => {
-                setCarData(res)
-                setCarRegDate(res['regDate'])
-                res['images'].forEach(img =>
-                    imagesSrc.push(prefix + img)
+                setCarData(res.data)
+                setCarRegDate(res.data['regDate'])
+                res.data['images'].forEach(img =>
+                    imagesSrc.push(imgScrPrefix + img)
                 );
                 setImages(imagesSrc)
             })
