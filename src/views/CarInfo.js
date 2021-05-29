@@ -8,7 +8,7 @@ import $http from "../Utils";
 
 import CarSwiper from "../components/Swiper";
 
-import {prefix} from "../config";
+import {prefix} from "../Utils/imgConfig";
 
 const {Header, Footer, Sider, Content} = Layout
 

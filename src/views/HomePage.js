@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom'
 
 import $http from "../Utils";
-import {prefix} from "../config";
+import {prefix} from "../Utils/imgConfig";
 
 import {Pagination} from 'antd';
 import {Card} from 'antd';
