@@ -52,7 +52,7 @@ const ManageSystemLogin = () => {
         <>
             <Form
                 {...layout}
-                name="basic"
+                name="ManageSystemLoginForm"
                 initialValues={{
                     remember: true,
                 }}
