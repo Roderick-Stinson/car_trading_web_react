@@ -1,21 +1,17 @@
-import {useEffect} from "react";
-import $http from "../Utils";
-import {removeToken} from "../reducer/TokenReducer";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
+import storage from "sweet-storage";
 
 const ManageSystem = () => {
-
     const history = useHistory()
 
-    useEffect(() => {
-        $http.get('/api/user')
-            .then(res => {
-                if (res.data['code'] === 401) {
-                    removeToken()
-                    history.push('/management/login')
-                }
-            }, [])
+    storage.on('Authorization', () => {
+        console.log('expire', storage.get('Authorization'))
+        history.push('/management/login')
     })
+
+    if (!storage.get('Authorization')) {
+        return <Redirect to={'/management/login'}/>
+    }
 
     return (
         <div>

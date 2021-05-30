@@ -1,3 +1,4 @@
+import storage from 'sweet-storage'
 const tokenReducer = (state = {Authorization: 'initial'}, action) => {
     switch (action.type) {
         case 'SET_TOKEN':
@@ -10,7 +11,8 @@ const tokenReducer = (state = {Authorization: 'initial'}, action) => {
 }
 
 export const setToken = (token) => {
-    localStorage.setItem('Authorization', token)
+    storage.save('Authorization', token, 10000)
+
     return {
         type: 'SET_TOKEN',
         data: {
@@ -20,7 +22,7 @@ export const setToken = (token) => {
 }
 
 export const removeToken = () => {
-    localStorage.removeItem('Authorization')
+    storage.remove('Authorization')
     return {
         type: 'REMOVE_TOKEN',
         data: {
