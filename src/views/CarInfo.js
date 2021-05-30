@@ -53,7 +53,7 @@ const CarInfo = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={10} offset={1}>
+                        <Col span={8} offset={3}>
                             {images.length > 0
                                 ? <CarSwiper imagesSrc={images}/>
                                 : <></>}
