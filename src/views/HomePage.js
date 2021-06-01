@@ -4,14 +4,14 @@ import {useHistory} from 'react-router-dom'
 import $http from "../Utils";
 import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
 
-import {Pagination , Layout , Space } from 'antd';
+import {Pagination, Layout, Space, Button, Tag} from 'antd';
 import {Card} from 'antd';
 import {Row, Col} from 'antd';
 import {Content} from "antd/es/layout/layout";
 
 const {Meta} = Card;
 
-const MyCard = ({id, name, img}) => {
+const MyCard = ({id, name, img , price }) => {
 
     const history = useHistory()
 
@@ -22,9 +22,17 @@ const MyCard = ({id, name, img}) => {
             onClick={() => {
                 history.push('/carInfo/' + id)
             }}
-
         >
-            <Meta title={name}/>
+            <Meta title={name}
+            />
+
+            <div style={{marginTop : "10px",color : "gray",fontSize : "10px"}}> 2019年4月/5.13公里 </div>
+            <div style={{marginTop : "5px"}}> <Tag color="#4ab340">超值</Tag></div>
+            <div style={{marginTop : "10px",color : "red",fontSize : "25px"}}>
+                15万
+                <Button danger style={{marginInlineStart : "95px"}} size="middle" >查看详情</Button>
+            </div>
+
         </Card>
     )
 }
@@ -56,7 +64,7 @@ const HomePage = () => {
         return (
            <Layout>
                <Content style={{ padding: '0 240px' }} >
-                   <Col offset={0}>
+                   <Col offset={0}  style={{marginTop : "60px"}} >
                        <Space direction="vertical" size="large" >
                            <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} >
                                {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']}

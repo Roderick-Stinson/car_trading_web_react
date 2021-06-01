@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import { Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { WalletOutlined, TransactionOutlined , AppstoreOutlined } from '@ant-design/icons';
 import {useState} from "react";
 
 const NaviMenu = () => {
@@ -15,11 +15,11 @@ const NaviMenu = () => {
             onClick={handleClick}
             selectedKeys={[current]}
             mode={"horizontal"}>
-            <Menu.Item key="" icon={<MailOutlined />}>
+            <Menu.Item key="" icon={<WalletOutlined />}>
                 <Link to={'/'} />
                 我要买车
             </Menu.Item>
-            <Menu.Item key="sell" icon={<AppstoreOutlined />}>
+            <Menu.Item key="sell" icon={<TransactionOutlined />}>
                 <Link to={'/sell'} />
                 我要卖车
             </Menu.Item>

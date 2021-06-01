@@ -1,4 +1,4 @@
-import {Card, Space, Button} from 'antd';
+import {Card, Space, Button, Tag} from 'antd';
 import React, {useState} from 'react';
 import {OrderForm, PriceReductionReminderForm} from "./FormInModal";
 
@@ -36,10 +36,11 @@ const CarCard = ({name, price, brand, mileage, regDate}) => {
         <div className="site-card-border-less-wrapper">
             <Card style={{width: 600}} title={name}>
                 <Space direction="vertical" size="middle">
+                    <div ><Tag color="#4ab340">超值</Tag></div>
                     <Card type="inner" title={"车主报价：" + Math.round(price * 100) / 100 + "万"}
                         // eslint-disable-next-line
                           extra={<a onClick={showModalPrice}>降价提醒 </a>}>
-                        服务费：{Math.round(price * 100) / 10000} 万元 （预估）(最终以成交价格的1%为准）
+                        服务费：{Math.round(price * 100) / 10000 * 10000} 元 （预估）(成交价*1%）
                     </Card>
                     <Card type="inner">
                         <Card.Grid style={gridStyle} hoverable={false}><h6>品牌</h6><h4>{brand}</h4></Card.Grid>
