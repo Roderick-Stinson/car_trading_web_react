@@ -11,7 +11,7 @@ import {Content} from "antd/es/layout/layout";
 
 const {Meta} = Card;
 
-const MyCard = ({id, name, img , price }) => {
+const MyCard = ({id, name, img , price, mileage, regDate }) => {
 
     const history = useHistory()
 
@@ -23,13 +23,12 @@ const MyCard = ({id, name, img , price }) => {
                 history.push('/carInfo/' + id)
             }}
         >
-            <Meta title={name}
-            />
+            <Meta title={name}/>
 
-            <div style={{marginTop : "10px",color : "gray",fontSize : "10px"}}> 2019年4月/5.13公里 </div>
+            <div style={{marginTop : "10px",color : "gray",fontSize : "10px"}}> {regDate? regDate['year'] : ''}年{regDate? regDate['monthValue'] : ''}月/{Math.round(mileage * 100) / 100}公里 </div>
             <div style={{marginTop : "5px"}}> <Tag color="#4ab340">超值</Tag></div>
             <div style={{marginTop : "10px",color : "red",fontSize : "25px"}}>
-                15万
+                {price}万
                 <Button danger style={{marginInlineStart : "95px"}} size="middle" >查看详情</Button>
             </div>
 
@@ -67,8 +66,7 @@ const HomePage = () => {
                    <Col offset={0}  style={{marginTop : "60px"}} >
                        <Space direction="vertical" size="large" >
                            <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} >
-                               {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']}
-                                                                                               img={imgScrPrefix + item['images']}/></Col>)}
+                               {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']} regDate={item['regDate']} mileage={item['mileage']} price={Math.round(item['price'] * 100) / 100} img={imgScrPrefix + item['images']}/></Col>)}
                            </Row>
                            <Row justify = "center">
                                <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChange} total={carCount}/>
