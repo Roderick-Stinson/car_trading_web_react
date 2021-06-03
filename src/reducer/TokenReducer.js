@@ -11,7 +11,7 @@ const tokenReducer = (state = {Authorization: 'initial'}, action) => {
 }
 
 export const setToken = (token) => {
-    storage.save('Authorization', token, 10000)
+    storage.save('Authorization', token, 1440000)
 
     return {
         type: 'SET_TOKEN',

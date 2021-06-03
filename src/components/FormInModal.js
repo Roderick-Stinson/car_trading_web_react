@@ -1,7 +1,8 @@
 import {Form, Input, Modal} from "antd";
 import React from "react";
+import $http from "../Utils";
 
-export const PriceReductionReminderForm = ({price, visible, handleOk, onCancel}) => {
+export const PriceReductionReminderForm = ({id, price, visible, handleOk, onCancel}) => {
     const [form] = Form.useForm();
     return (
         <Modal
@@ -50,16 +51,30 @@ export const PriceReductionReminderForm = ({price, visible, handleOk, onCancel})
     );
 };
 
-export const OrderForm = ({price, visible, handleOk, onCancel}) => {
+export const OrderForm = ({id, price, visible, handleOk, onCancel}) => {
     const [form] = Form.useForm();
+    const onFinish = (values) => {
+        $http.post('/api/trade', null, {
+            params: {
+                carId: id,
+                price: values['psychologicalPrice'],
+                status: 0
+            }
+        }).then(res => {
+            console.log(res)
+        })
+    };
+
+
     return (
         <Modal
             visible={visible}
-            title="降价提醒"
+            title="立即报价"
             onCancel={onCancel}
             onOk={() => {
                 form.validateFields()
                     .then(() => {
+                        form.submit()
                         handleOk()
                     })
             }
@@ -70,6 +85,7 @@ export const OrderForm = ({price, visible, handleOk, onCancel}) => {
                 form={form}
                 layout="vertical"
                 name="Price"
+                onFinish={onFinish}
             >
                 <Form.Item
                     name="psychologicalPrice"

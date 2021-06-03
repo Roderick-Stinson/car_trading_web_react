@@ -1,5 +1,4 @@
 import 'antd/dist/antd.css';
-import '../css/layout.css'
 import {Breadcrumb, Layout, PageHeader} from 'antd'
 
 import {Row, Col} from 'antd';
@@ -59,7 +58,7 @@ const CarInfo = () => {
                                 : <></>}
                         </Col>
                         <Col span={8} offset={1}>
-                            <CarCard name={carData['name']} price={carData['price']} brand={carData['brand']}
+                            <CarCard id={id} name={carData['name']} price={carData['price']} brand={carData['brand']}
                                      mileage={carData['mileage']} regDate={carData['regDate']}/>
                         </Col>
                     </Row>

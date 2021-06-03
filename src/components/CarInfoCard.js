@@ -1,13 +1,14 @@
 import {Card, Space, Button, Tag} from 'antd';
 import React, {useState} from 'react';
 import {OrderForm, PriceReductionReminderForm} from "./FormInModal";
+import storage from "sweet-storage";
 
 const gridStyle = {
     width: '25%',
     textAlign: 'center',
 };
 
-const CarCard = ({name, price, brand, mileage, regDate}) => {
+const CarCard = ({id, name, price, brand, mileage, regDate}) => {
 
     const [isModalVisiblePrice, setIsModalVisiblePrice] = useState(false);
     const showModalPrice = () => {
@@ -22,7 +23,11 @@ const CarCard = ({name, price, brand, mileage, regDate}) => {
 
     const [isModalVisibleBuy, setIsModalVisibleBuy] = useState(false);
     const showModalBuy = () => {
-        setIsModalVisibleBuy(true);
+        if (storage.get('Authorization')) {
+            setIsModalVisibleBuy(true);
+        } else {
+            alert('请登录')
+        }
     };
     const handleOkBuy = () => {
         setIsModalVisibleBuy(false);
@@ -59,10 +64,10 @@ const CarCard = ({name, price, brand, mileage, regDate}) => {
             </Card>
 
             <>
-                <PriceReductionReminderForm price={price} visible={isModalVisiblePrice} handleOk={handleOkPrice} onCancel={handleCancelPrice}/>
+                <PriceReductionReminderForm id={id} price={price} visible={isModalVisiblePrice} handleOk={handleOkPrice} onCancel={handleCancelPrice}/>
             </>
             <>
-                <OrderForm price={price} visible={isModalVisibleBuy} handleOk={handleOkBuy} onCancel={handleCancelBuy} />
+                <OrderForm id={id} price={price} visible={isModalVisibleBuy} handleOk={handleOkBuy} onCancel={handleCancelBuy} />
             </>
 
 
