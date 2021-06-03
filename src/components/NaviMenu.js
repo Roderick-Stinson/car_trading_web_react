@@ -49,7 +49,6 @@ const NaviMenu = () => {
 
     const [form] = Form.useForm();
     const onFinish = (values) => {
-
         $http.post('/api/login', null, {
             params: {
                 username: values['username'],
@@ -58,6 +57,7 @@ const NaviMenu = () => {
         }).then(res => {
             if (res.data['code'] === 200) {
                 dispatch(setToken(res.data['token']))
+                setLoginButtonText(res.data['username'])
             } else
                 console.log('error')
         })
@@ -98,7 +98,7 @@ const NaviMenu = () => {
                             .then(() => {
                                 form.submit()
                                 onLogin()
-                                setLoginButtonText("success")
+
                             })
                     }
                 }
