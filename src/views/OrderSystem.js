@@ -1,26 +1,36 @@
-// import {Redirect, useHistory} from "react-router-dom";
-// import storage from "sweet-storage";
-import {List, Avatar, Button, Space} from 'antd';
+import {List, Button, Space} from 'antd';
 import Layout, {Content} from "antd/es/layout/layout";
 import {DeleteOutlined, FileSearchOutlined} from '@ant-design/icons';
+import $http from "../Utils";
+import {useEffect, useState} from "react";
+import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
+import storage from "sweet-storage";
+import {useHistory} from "react-router-dom";
 
 const OrderList = () => {
+    const [data, setData] = useState([])
+    const history = useHistory()
 
-    const data = [
-        {
-            key: "高达 初号机 2019年款"
-        },
-        {
-            key: "高达 初号机 2019年款"
-        },
-        {
-            key: "高达 初号机 2019年款"
-        },
-        {
-            key: "高达 初号机 2019年款"
-        },
+    useEffect(() => {
+        if (!storage.get('Authorization')) {
+            history.replace('/')
+            alert('请登录')
+        } else {
+            let test = []
+            $http.get("/api/user/buy")
+                .then(res => {
+                    res.data.forEach(item => {
+                        test.push({
+                            key: item['car']['name'],
+                            carId: item['carId'],
+                            imgSrc: imgScrPrefix + item['car']['images'][0]
+                        })
+                    })
+                    setData(test)
+                })
+        }
+    }, [history]);
 
-    ];
     return (
         <Layout>
             <Content style={{padding: '50px 50px'}}>
@@ -33,7 +43,7 @@ const OrderList = () => {
                                 <img
                                     width={272}
                                     alt="logo"
-                                    src="http://8.140.11.73:4567/image/%E5%A4%A7%E4%BC%97-%E9%AB%98%E5%B0%94%E5%A4%AB_2011%E6%AC%BE_2.0TSI_GTI_2011%E5%B9%B403%E6%9C%88_0.jpg"
+                                    src={item.imgSrc}
                                 />
                             }>
                             <List.Item.Meta
@@ -46,7 +56,7 @@ const OrderList = () => {
                                 </div>
                                 <div>
                                     <Space>
-                                        <Button type="primary">
+                                        <Button type="primary" onClick={() => history.replace("/carInfo/"+item.carId)}>
                                             <FileSearchOutlined/>
                                             查看详情
                                         </Button>

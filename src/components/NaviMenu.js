@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {Button, Col, Form, Input, Menu, Modal, Row} from 'antd';
 import {WalletOutlined, TransactionOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import {useState} from "react";
@@ -6,6 +6,7 @@ import storage from "sweet-storage";
 import $http from "../Utils";
 import {removeToken, setToken} from "../reducer/TokenReducer";
 import {useDispatch} from "react-redux";
+import {removeUsername, setUsername} from "../reducer/UsernameReducer";
 
 const layout = {
     labelCol: {
@@ -18,9 +19,14 @@ const layout = {
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
-    const [loginButtonText, setLoginButtonText] = useState('login')
+    const [loginButtonText, setLoginButtonText] = useState(storage.get('Username')? storage.get('Username') : 'login')
     const [showLoginDialog, setShowLoginDialog] = useState(false)
     const dispatch = useDispatch()
+    const history = useHistory()
+
+    history.listen(route => {
+        setCurrent(route.pathname)
+    })
 
     const handleClick = (e) => {
         setCurrent(e.key)
@@ -39,13 +45,14 @@ const NaviMenu = () => {
             setShowLoginDialog(true)
         else {
             dispatch(removeToken())
+            dispatch(removeUsername())
             setLoginButtonText('login')
         }
     }
 
     storage.on('Authorization', () => {
         setLoginButtonText("login")
-    })
+    });
 
     const [form] = Form.useForm();
     const onFinish = (values) => {
@@ -57,6 +64,7 @@ const NaviMenu = () => {
         }).then(res => {
             if (res.data['code'] === 200) {
                 dispatch(setToken(res.data['token']))
+                dispatch(setUsername(res.data['username']))
                 setLoginButtonText(res.data['username'])
             } else
                 console.log('error')

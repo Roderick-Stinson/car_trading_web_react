@@ -3,7 +3,7 @@ import {setTrue} from "./GlobalVariableConfig";
 
 const $http = axios.create({
     baseURL: '',
-    timeout: 5000
+    timeout: 15000
 });
 
 // 添加请求拦截器
