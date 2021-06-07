@@ -8,7 +8,7 @@ import {
     BrowserRouter as Router,
     Route,
 } from "react-router-dom"
-import ManageSystem from "./views/ManageSystem";
+import OrderList from "./views/OrderSystem";
 import ManageSystemLogin from "./views/ManageSystemLogin";
 import SellCar from "./views/SellCar";
 
@@ -19,7 +19,7 @@ const App = () => {
             <Route component={HomePage} exact={true} path={'/'}/>
             <Route component={CarInfo} exact={true} path={'/carInfo/:id'}/>
             <Route component={SellCar} exact={true} path={'/sell'} />
-            <Route component={ManageSystem} exact={true} path={'/management'} />
+            <Route component={OrderList} exact={true} path={'/order'} />
             <Route component={ManageSystemLogin} exact={true} path={'/management/login'} />
         </Router>
     )

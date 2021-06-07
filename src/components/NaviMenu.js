@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import {Button, Col, Form, Input, Menu, Modal, Row} from 'antd';
-import {WalletOutlined, TransactionOutlined, AppstoreOutlined} from '@ant-design/icons';
+import {WalletOutlined, TransactionOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import {useState} from "react";
 import storage from "sweet-storage";
 import $http from "../Utils";
@@ -79,9 +79,9 @@ const NaviMenu = () => {
                         <Link to={'/sell'}/>
                         我要卖车
                     </Menu.Item>
-                    <Menu.Item key="management" icon={<AppstoreOutlined/>}>
-                        <Link to={'/management'}/>
-                        后台管理系统
+                    <Menu.Item key="order" icon={<UnorderedListOutlined/>}>
+                        <Link to={'/order'}/>
+                        我的订单
                     </Menu.Item>
                 </Menu>
             </Col>
