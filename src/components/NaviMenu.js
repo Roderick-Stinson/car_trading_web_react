@@ -19,8 +19,9 @@ const layout = {
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
-    const [loginButtonText, setLoginButtonText] = useState(storage.get('Username')? storage.get('Username') : 'login')
+    const [loginButtonText, setLoginButtonText] = useState(storage.get('Username') ? storage.get('Username') : 'login')
     const [showLoginDialog, setShowLoginDialog] = useState(false)
+    const [showRegisterDialog, setShowRegisterDialog] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -36,8 +37,16 @@ const NaviMenu = () => {
         setShowLoginDialog(false)
     }
 
-    const onCancel = () => {
+    const onRegister = () => {
+        setShowRegisterDialog(false)
+    }
+
+    const onCancelLogin = () => {
         setShowLoginDialog(false)
+    }
+
+    const onCancelRegister = () => {
+        setShowRegisterDialog(false)
     }
 
     const onClick = () => {
@@ -54,8 +63,9 @@ const NaviMenu = () => {
         setLoginButtonText("login")
     });
 
-    const [form] = Form.useForm();
-    const onFinish = (values) => {
+    const [formLogin] = Form.useForm();
+    const [formRegister] = Form.useForm()
+    const onFinishLogin = (values) => {
         $http.post('/api/login', null, {
             params: {
                 username: values['username'],
@@ -70,6 +80,18 @@ const NaviMenu = () => {
                 console.log('error')
         })
     };
+
+    const onFinishRegister = (values) => {
+        console.log(values)
+        $http.post('/api/register', {
+            "username": values['username'],
+            "password": values['password'],
+            "phone": values['phoneNumber']
+        }).then(res => {
+            if (res.data.code === 200)
+                alert("注册成功")
+        })
+    }
 
 
     return (
@@ -99,12 +121,12 @@ const NaviMenu = () => {
             <Modal
                 visible={showLoginDialog}
                 title="登录"
-                onCancel={onCancel}
+                onCancel={onCancelLogin}
                 onOk={
                     () => {
-                        form.validateFields()
+                        formLogin.validateFields()
                             .then(() => {
-                                form.submit()
+                                formLogin.submit()
                                 onLogin()
 
                             })
@@ -113,9 +135,9 @@ const NaviMenu = () => {
             >
                 <Form
                     {...layout}
-                    form={form}
+                    form={formLogin}
                     name="ManageSystemLoginForm"
-                    onFinish={onFinish}
+                    onFinish={onFinishLogin}
                 >
                     <Form.Item
                         label="Username"
@@ -141,6 +163,70 @@ const NaviMenu = () => {
                         ]}
                     >
                         <Input.Password/>
+                    </Form.Item>
+                </Form>
+                <Button onClick={() => {
+                    setShowLoginDialog(false)
+                    setShowRegisterDialog(true)
+                }}
+                >注册</Button>
+            </Modal>
+            <Modal
+                visible={showRegisterDialog}
+                title="注册"
+                onCancel={onCancelRegister}
+                onOk={
+                    () => {
+                        formRegister.validateFields()
+                            .then(() => {
+                                formRegister.submit()
+                                onRegister()
+                            })
+                    }
+                }
+            >
+                <Form
+                    {...layout}
+                    form={formRegister}
+                    name="RegisterForm"
+                    onFinish={onFinishRegister}
+                >
+                    <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                    >
+                        <Input.Password/>
+                    </Form.Item>
+                    <Form.Item
+                        label="PhoneNumber"
+                        name="phoneNumber"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your phoneNumber!',
+                            },
+                        ]}
+                    >
+                        <Input/>
                     </Form.Item>
                 </Form>
             </Modal>
