@@ -98,7 +98,7 @@ const NaviMenu = () => {
 
     return (
         <Row style={{background: "white"}} justify="space-around" align="middle">
-            <Col span={23}>
+            <Col span={22}>
                 <Menu
                     onClick={handleClick}
                     selectedKeys={[current]}
@@ -117,7 +117,7 @@ const NaviMenu = () => {
                     </Menu.Item>
                 </Menu>
             </Col>
-            <Col span={1}>
+            <Col span={2}>
                 <Button type={"text"} onClick={() => onClick()}>{loginButtonText}</Button>
             </Col>
             <Modal
@@ -147,6 +147,8 @@ const NaviMenu = () => {
                         rules={[
                             {
                                 required: '请输入您的用户名!',
+                                pattern: /\w{4,12}/,
+                                message: '请输入用户名, 4-12位，不允许出现空格!',
                             },
                         ]}
                     >
@@ -160,6 +162,7 @@ const NaviMenu = () => {
                             {
                                 required: true,
                                 message: '请输入您的密码!',
+
                             },
                         ]}
                     >
@@ -198,7 +201,8 @@ const NaviMenu = () => {
                         rules={[
                             {
                                 required: true,
-                                message: '请输入用户名!',
+                                pattern: /\w{4,12}/,
+                                message: '请输入用户名, 4-12位，不允许出现空格!',
                             },
                         ]}
                     >
@@ -223,6 +227,7 @@ const NaviMenu = () => {
                         rules={[
                             {
                                 required: true,
+                                pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/),
                                 message: '请输入手机号!',
                             },
                         ]}

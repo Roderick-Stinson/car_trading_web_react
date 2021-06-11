@@ -33,18 +33,7 @@ export const PriceReductionReminderForm = ({id, price, visible, handleOk, onCanc
                         },
                     ]}
                 >
-                    <Input suffix="万" placeholder="降到多少通知我"/>
-                </Form.Item>
-                <Form.Item
-                    name="phoneNumber"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your phone number!',
-                        },
-                    ]}
-                >
-                    <Input placeholder="请输入您的手机号"/>
+                    <Input type="number" suffix="万" placeholder="降到多少通知我"/>
                 </Form.Item>
             </Form>
         </Modal>
@@ -92,22 +81,11 @@ export const OrderForm = ({id, price, visible, handleOk, onCancel}) => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your psychological price!',
+                            message: '请输入您的心理预期价格',
                         },
                     ]}
                 >
-                    <Input suffix="万" placeholder="期望价格"/>
-                </Form.Item>
-                <Form.Item
-                    name="phoneNumber"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your phone number!',
-                        },
-                    ]}
-                >
-                    <Input placeholder="请输入您的手机号"/>
+                    <Input type={"number"} suffix="万" placeholder="期望价格"/>
                 </Form.Item>
             </Form>
         </Modal>
