@@ -19,7 +19,7 @@ const layout = {
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
-    const [loginButtonText, setLoginButtonText] = useState(storage.get('Username') ? storage.get('Username') : 'login')
+    const [loginButtonText, setLoginButtonText] = useState(storage.get('Username') ? storage.get('Username') : '登陆')
     const [showLoginDialog, setShowLoginDialog] = useState(false)
     const [showRegisterDialog, setShowRegisterDialog] = useState(false)
     const dispatch = useDispatch()
@@ -39,6 +39,7 @@ const NaviMenu = () => {
 
     const onRegister = () => {
         setShowRegisterDialog(false)
+        setShowLoginDialog(true)
     }
 
     const onCancelLogin = () => {
@@ -47,20 +48,21 @@ const NaviMenu = () => {
 
     const onCancelRegister = () => {
         setShowRegisterDialog(false)
+        setShowLoginDialog(true)
     }
 
     const onClick = () => {
-        if (loginButtonText === 'login')
+        if (loginButtonText === '登陆')
             setShowLoginDialog(true)
         else {
             dispatch(removeToken())
             dispatch(removeUsername())
-            setLoginButtonText('login')
+            setLoginButtonText('登陆')
         }
     }
 
     storage.on('Authorization', () => {
-        setLoginButtonText("login")
+        setLoginButtonText("登陆")
     });
 
     const [formLogin] = Form.useForm();
@@ -140,12 +142,11 @@ const NaviMenu = () => {
                     onFinish={onFinishLogin}
                 >
                     <Form.Item
-                        label="Username"
+                        label="用户名"
                         name="username"
                         rules={[
                             {
-                                required: true,
-                                message: 'Please input your username!',
+                                required: '请输入您的用户名!',
                             },
                         ]}
                     >
@@ -153,12 +154,12 @@ const NaviMenu = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Password"
+                        label="密码"
                         name="password"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!',
+                                message: '请输入您的密码!',
                             },
                         ]}
                     >
@@ -192,12 +193,12 @@ const NaviMenu = () => {
                     onFinish={onFinishRegister}
                 >
                     <Form.Item
-                        label="Username"
+                        label="用户名"
                         name="username"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your username!',
+                                message: '请输入用户名!',
                             },
                         ]}
                     >
@@ -205,24 +206,24 @@ const NaviMenu = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Password"
+                        label="密码"
                         name="password"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!',
+                                message: '请输入密码!',
                             },
                         ]}
                     >
                         <Input.Password/>
                     </Form.Item>
                     <Form.Item
-                        label="PhoneNumber"
+                        label="手机号"
                         name="phoneNumber"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your phoneNumber!',
+                                message: '请输入手机号!',
                             },
                         ]}
                     >

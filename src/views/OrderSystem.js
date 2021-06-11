@@ -48,7 +48,6 @@ const OrderList = () => {
                             }>
                             <List.Item.Meta
                                 title={<a href="https://ant.design">{item.key}</a>}
-                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                             />
                             <Space>
                                 <div>
