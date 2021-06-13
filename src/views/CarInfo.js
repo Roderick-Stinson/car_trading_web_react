@@ -9,6 +9,7 @@ import $http from "../Utils";
 
 import CarSwiper from "../components/Swiper";
 import CarCard from "../components/CarInfoCard";
+import MyFooter from "../components/Footer";
 
 import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
 
@@ -32,8 +33,8 @@ const CarInfo = () => {
         // eslint-disable-next-line
     }, [id])
     return (
-        <Layout>
-            <Layout>
+        <Layout style={{minHeight:"95vh"}}>
+            <Layout style={{display:"flex"}}>
                 <Content>
                     <Row>
                         <Col span={24} justify="center">
@@ -64,6 +65,7 @@ const CarInfo = () => {
                     </Row>
                 </Content>
             </Layout>
+            <MyFooter/>
         </Layout>
     )
 }
