@@ -3,7 +3,7 @@ import {Button, Col, Form, Input, Menu, Modal, Row} from 'antd';
 import {WalletOutlined, TransactionOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import {useState} from "react";
 import storage from "sweet-storage";
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 import {removeToken, setToken} from "../reducer/TokenReducer";
 import {useDispatch} from "react-redux";
 import {removeUsername, setUsername} from "../reducer/UsernameReducer";
@@ -110,8 +110,6 @@ const NaviMenu = () => {
                 alert("注册成功")
         })
     }
-
-
     return (
         <Layout>
             <Row style={{background: "white"}} justify="space-around" align="middle">

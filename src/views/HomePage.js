@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom'
 
-import $http from "../Utils";
-import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
+import $http from "../Utils/httpUtil";
+import {imgSrcPrefix} from "../Utils/GlobalVariableConfig";
 
 import {Pagination, Layout, Space, Button, Tag} from 'antd';
 import {Card} from 'antd';
@@ -80,7 +80,7 @@ const HomePage = () => {
                                         regDate={item['regDate']}
                                         mileage={item['mileage']}
                                         price={Math.round(item['price'] * 100) / 100}
-                                        img={imgScrPrefix + item['images']}/></Col>)}
+                                        img={imgSrcPrefix + item['images']}/></Col>)}
                         </Row>
                         <Row justify="center">
                             <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChange}

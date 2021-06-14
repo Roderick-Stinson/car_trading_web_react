@@ -1,6 +1,6 @@
 import {Form, Input, Modal} from "antd";
 import React from "react";
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 
 export const PriceReductionReminderForm = ({id, price, visible, handleOk, onCancel}) => {
     const [form] = Form.useForm();
