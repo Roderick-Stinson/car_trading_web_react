@@ -1,4 +1,4 @@
-import {List, Button, Space} from 'antd';
+import {List, Button, Space, message, Popconfirm} from 'antd';
 import Layout, {Content} from "antd/es/layout/layout";
 import {DeleteOutlined, FileSearchOutlined} from '@ant-design/icons';
 import $http from "../Utils";
@@ -22,6 +22,7 @@ const OrderList = () => {
                     res.data.forEach(item => {
                         test.push({
                             key: item['car']['name'],
+                            id: item['id'],
                             carId: item['carId'],
                             imgSrc: imgScrPrefix + item['car']['images'][0]
                         })
@@ -55,20 +56,38 @@ const OrderList = () => {
                                 </div>
                                 <div>
                                     <Space>
-                                        <Button type="primary" onClick={() => history.replace("/carInfo/"+item.carId)}>
+                                        <Button type="primary"
+                                                onClick={() => history.replace("/carInfo/" + item.carId)}>
                                             <FileSearchOutlined/>
                                             查看详情
                                         </Button>
-                                        <Button danger
-                                                type="default"
-                                                href={"https://www.baidu.com"}
-                                                onClick={() => {
-                                                    console.log("这是车的数据:", item.key)
-                                                }
-                                                }>
-                                            <DeleteOutlined/>
-                                            删除订单
-                                        </Button>
+                                        <Popconfirm
+                                            title="您确定要删除该条数据?"
+                                            onConfirm={() => {
+                                                $http.delete('/api/trade/'+item.id)
+                                                    .then(res => {
+                                                        console.log("delete", res)
+                                                        if (res.status !== 200) {
+                                                            message.error("删除错误，请重试").then(r =>{} )
+                                                        }
+                                                    })
+                                                message.error('删除成功！').then(r => {});
+                                                let updatedData = []
+                                                data.forEach(itemdata => {
+                                                    if (itemdata.id !== item.id) {
+                                                        updatedData.push(itemdata)
+                                                    }
+                                                })
+                                                setData(updatedData)
+                                            }}
+                                            okText="确认"
+                                            cancelText="取消"
+                                        >
+                                            <Button danger type="default">
+                                                <DeleteOutlined/>
+                                                删除订单
+                                            </Button>
+                                        </Popconfirm>
                                     </Space>
                                 </div>
                             </Space>
