@@ -1,6 +1,6 @@
 import {TransactionOutlined, WalletOutlined} from "@ant-design/icons";
 import React from "react";
-import {Button, Card, Input, Space, Tag} from "antd";
+import {Button, Card, Input, Space} from "antd";
 import Checkbox from "antd/es/checkbox/Checkbox";
 import {StepSellCar} from "../components/StepSellCar";
 

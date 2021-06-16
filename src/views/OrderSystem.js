@@ -1,4 +1,4 @@
-import {List, Button, Space, message, Popconfirm} from 'antd';
+import {List, Button, Space} from 'antd';
 import Layout, {Content} from "antd/es/layout/layout";
 import {DeleteOutlined, FileSearchOutlined} from '@ant-design/icons';
 import $http from "../Utils";
@@ -11,15 +11,6 @@ const OrderList = () => {
     const [data, setData] = useState([])
     const history = useHistory()
 
-    //列表删除按钮的确认和取消函数
-    function confirm(e) {
-        console.log(e);
-        message.error('删除成功！');
-    }
-
-    function cancel(e) {
-
-    }
     useEffect(() => {
         if (!storage.get('Authorization')) {
             history.replace('/')
@@ -68,24 +59,16 @@ const OrderList = () => {
                                             <FileSearchOutlined/>
                                             查看详情
                                         </Button>
-                                        {/*<Button danger*/}
-                                        {/*        type="default"*/}
-                                        {/*        onClick={() => {*/}
-                                        {/*            console.log("这是车的数据:", item.key)*/}
-                                        {/*        }*/}
-                                        {/*        }>*/}
-                                        {/*    <DeleteOutlined/>*/}
-                                        {/*    删除订单*/}
-                                        {/*</Button>*/}
-                                        <Popconfirm
-                                            title="您确定要删除该条数据?"
-                                            onConfirm={confirm}
-                                            onCancel={cancel}
-                                            okText="确认"
-                                            cancelText="取消"
-                                        >
-                                            <Button type="link" href="#">删除</Button>
-                                        </Popconfirm>
+                                        <Button danger
+                                                type="default"
+                                                href={"https://www.baidu.com"}
+                                                onClick={() => {
+                                                    console.log("这是车的数据:", item.key)
+                                                }
+                                                }>
+                                            <DeleteOutlined/>
+                                            删除订单
+                                        </Button>
                                     </Space>
                                 </div>
                             </Space>

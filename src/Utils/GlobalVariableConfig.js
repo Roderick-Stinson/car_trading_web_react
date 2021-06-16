@@ -1,4 +1,4 @@
-export const imgScrPrefix = 'http://8.140.11.73:4567/'
+export const imgScrPrefix = 'http://124.70.3.195:4567/'
 
 let showModal = false
 
