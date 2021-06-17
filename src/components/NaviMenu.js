@@ -25,6 +25,23 @@ const NaviMenu = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const [isModalVisibleLogin, setIsModalVisibleLogin] = useState(false);
+
+    const showModalLogin = () => {
+        setIsModalVisibleLogin(true);
+    };
+
+    const handleOkLogin = () => {
+        setIsModalVisibleLogin(false);
+        dispatch(removeToken())
+        dispatch(removeUsername())
+        setLoginButtonText('登陆')
+    };
+
+    const handleCancelLogin = () => {
+        setIsModalVisibleLogin(false);
+    };
+
     history.listen(route => {
         setCurrent(route.pathname)
     })
@@ -55,9 +72,7 @@ const NaviMenu = () => {
         if (loginButtonText === '登陆')
             setShowLoginDialog(true)
         else {
-            dispatch(removeToken())
-            dispatch(removeUsername())
-            setLoginButtonText('登陆')
+            showModalLogin(true)
         }
     }
 
@@ -235,6 +250,9 @@ const NaviMenu = () => {
                         <Input/>
                     </Form.Item>
                 </Form>
+            </Modal>
+            <Modal title="温馨提示" visible={isModalVisibleLogin} onOk={handleOkLogin} onCancel={handleCancelLogin}>
+                <p>您确认退出登陆吗？</p>
             </Modal>
         </Row>
     )
