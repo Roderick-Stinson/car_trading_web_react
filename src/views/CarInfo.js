@@ -64,7 +64,6 @@ const CarInfo = () => {
                     </Row>
                 </Content>
             </Layout>
-            <Footer>Footer</Footer>
         </Layout>
     )
 }

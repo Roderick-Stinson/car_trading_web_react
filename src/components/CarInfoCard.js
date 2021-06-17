@@ -1,4 +1,4 @@
-import {Card, Space, Button, Tag} from 'antd';
+import {Card, Space, Button, Tag, message} from 'antd';
 import React, {useState} from 'react';
 import {OrderForm, PriceReductionReminderForm} from "./FormInModal";
 import storage from "sweet-storage";
@@ -16,6 +16,7 @@ const CarCard = ({id, name, price, brand, mileage, regDate}) => {
     };
     const handleOkPrice = () => {
         setIsModalVisiblePrice(false);
+        message.success('设置成功！后续会通知您');
     };
     const handleCancelPrice = () => {
         setIsModalVisiblePrice(false);
@@ -31,6 +32,7 @@ const CarCard = ({id, name, price, brand, mileage, regDate}) => {
     };
     const handleOkBuy = () => {
         setIsModalVisibleBuy(false);
+        message.success('成功报价！后续会有人联系您');
     };
     const handleCancelBuy = () => {
         setIsModalVisibleBuy(false);

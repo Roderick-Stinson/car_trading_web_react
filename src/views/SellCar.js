@@ -1,21 +1,34 @@
 import {TransactionOutlined, WalletOutlined} from "@ant-design/icons";
-import React from "react";
-import {Button, Card, Input, Space} from "antd";
-import Checkbox from "antd/es/checkbox/Checkbox";
+import React, {useState} from "react";
+import {Button, Card, message, Space} from "antd";
 import {StepSellCar} from "../components/StepSellCar";
+import Modal from "antd/es/modal/Modal";
 
 const SellCar = () => {
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+        message.success('预约成功！');
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     return (
         <div>
-            <Card style={{width: 900 , marginTop: '40px',marginLeft: '500px',textAlign:'center' }} title={"极速卖车"}>
+            <Card style={{marginTop: '50px',width: 900,textAlign:'center',marginLeft: '500px' }} title={"卖车流程"}><StepSellCar></StepSellCar></Card>
+            <Card style={{width: 900 , marginTop: '20px',marginLeft: '500px',textAlign:'center' }} title={"极速卖车"}>
                 <Space direction="vertical" size="middle">
-                    <Input placeholder="请输入联系方式" />
-                    <Button type="primary" style={{width:300}}>提交申请</Button>
-                    <Checkbox >阅读并同意《用户服务协议》、《隐私政策》提交并注册为用户。提交即视为同意本平台电联您提供服务</Checkbox>
+                    <Button type="primary" style={{width:300}}  onClick={showModal}>我要卖车</Button>
                 </Space>
             </Card>
-            <Card style={{marginTop: '20px',width: 900,textAlign:'center',marginLeft: '500px' }} title={"卖车流程"}><StepSellCar></StepSellCar></Card>
             <Card style={{marginTop: '20px',width: 900,textAlign:'center',marginLeft: '500px' }} title={"保卖服务"} >
                 <Space direction="horizontal" size="middle">
                     <Card title={"当天拿钱"}>
@@ -29,6 +42,16 @@ const SellCar = () => {
                     </Card>
                 </Space>
             </Card>
+
+            <Modal title="您确定要预约卖车吗？"
+                   style={{textAlign:'center'}}
+                   width={400}
+                   visible={isModalVisible}
+                   onOk={handleOk}
+                   onCancel={handleCancel}>
+                <p>预约成功后我们平台会有专属客服联系您</p>
+                <p>评估师会免费上门检测为您服务</p>
+            </Modal>
         </div>
     )
 }
