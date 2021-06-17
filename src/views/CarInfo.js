@@ -12,7 +12,7 @@ import CarCard from "../components/CarInfoCard";
 
 import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
 
-const {Footer, Content} = Layout
+const {Content} = Layout
 
 const CarInfo = () => {
     const [carData, setCarData] = useState({})

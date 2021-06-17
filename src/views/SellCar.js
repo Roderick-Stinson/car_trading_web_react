@@ -1,12 +1,16 @@
 import {TransactionOutlined, WalletOutlined} from "@ant-design/icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Card, message, Space} from "antd";
 import {StepSellCar} from "../components/StepSellCar";
 import Modal from "antd/es/modal/Modal";
+import storage from "sweet-storage";
+import {useHistory} from "react-router-dom";
+import $http from "../Utils";
 
 const SellCar = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const history = useHistory()
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -14,12 +18,26 @@ const SellCar = () => {
 
     const handleOk = () => {
         setIsModalVisible(false);
-        message.success('预约成功！');
+        $http.post('/api/car/create', {})
+            .then(res => {
+                if (res.status !== 200) {
+                    message.error("网络错误，请重试")
+                } else {
+                    message.success('预约成功！');
+                }
+            })
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    useEffect(() => {
+        if (!storage.get('Authorization')) {
+            history.replace('/')
+            alert('请登录')
+        }
+    })
 
     return (
         <div>
