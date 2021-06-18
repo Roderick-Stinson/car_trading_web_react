@@ -43,7 +43,7 @@ export const PriceReductionReminderForm = ({id, price, visible, handleOk, onCanc
 export const OrderForm = ({id, price, visible, handleOk, onCancel}) => {
     const [form] = Form.useForm();
     const onFinish = (values) => {
-        $http.post('/api/trade', null, {
+        $http.post('/api/trade/create', null, {
             params: {
                 carId: id,
                 price: values['psychologicalPrice'],
