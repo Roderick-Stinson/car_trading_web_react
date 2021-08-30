@@ -1,0 +1,73 @@
+name: Deploy to server
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  IMAGE_NAME: car_trading_web_react
+  DOCKER_ACCOUNT: chivalryq
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set SHA
+        id: sha-var
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Check SHA
+        run: echo ${{ steps.sha-var.outputs.sha_short }}
+
+      - name: Build web image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_ACCESS }}" | docker login -u $DOCKER_ACCOUNT --password-stdin
+
+      - name: Push image
+        run: |
+          IMAGE_ID=$DOCKER_ACCOUNT/$IMAGE_NAME
+          VERSION=${{ steps.sha-var.outputs.sha_short }}
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+  deploy-web:
+    needs: [ build-image ]
+    name: Deploy Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set SHA
+        id: sha-var
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Check SHA
+        run: echo ${{ steps.sha-var.outputs.sha_short }}
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        env:
+          SHA: ${{ steps.sha-var.outputs.sha_short }}
+        with:
+          envs: IMANGE_NAME,SHA
+
+          host: ${{ secrets.HOST }} # 服务器ip
+          username: root
+          password: ${{ secrets.HOST_PASSWORD }} # 服务器登录密码
+          port: 22
+          script: |
+            docker stop $(docker ps -q)
+            docker rm -f $(docker ps -a -q)
+            docker rmi -f $(docker images -q)
+            docker pull chivalryq/mshd-sc:$SHA
+            docker pull chivalryq/mshd:$SHA
+            docker run -d  -p 80:3000  chivalryq/mshd:$SHA
