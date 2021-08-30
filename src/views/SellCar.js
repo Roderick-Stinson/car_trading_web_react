@@ -5,7 +5,7 @@ import {StepSellCar} from "../components/StepSellCar";
 import Modal from "antd/es/modal/Modal";
 import storage from "sweet-storage";
 import {useHistory} from "react-router-dom";
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 
 const SellCar = () => {
 
