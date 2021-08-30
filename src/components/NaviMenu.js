@@ -3,10 +3,11 @@ import {Button, Col, Form, Input, Menu, Modal, Row} from 'antd';
 import {WalletOutlined, TransactionOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import {useState} from "react";
 import storage from "sweet-storage";
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 import {removeToken, setToken} from "../reducer/TokenReducer";
 import {useDispatch} from "react-redux";
 import {removeUsername, setUsername} from "../reducer/UsernameReducer";
+import Layout from "antd/es/layout/layout";
 
 const layout = {
     labelCol: {
@@ -109,152 +110,145 @@ const NaviMenu = () => {
                 alert("注册成功")
         })
     }
-
-
     return (
-        <Row style={{background: "white"}} justify="space-around" align="middle">
-            <Col span={22}>
-                <Menu
-                    onClick={handleClick}
-                    selectedKeys={[current]}
-                    mode={"horizontal"}>
-                    <Menu.Item key="" icon={<WalletOutlined/>}>
-                        <Link to={'/'}/>
-                        我要买车
-                    </Menu.Item>
-                    <Menu.Item key="sell" icon={<TransactionOutlined/>}>
-                        <Link to={'/sell'}/>
-                        我要卖车
-                    </Menu.Item>
-                    <Menu.Item key="order" icon={<UnorderedListOutlined/>}>
-                        <Link to={'/order'}/>
-                        我的订单
-                    </Menu.Item>
-                </Menu>
-            </Col>
-            <Col span={2}>
-                <Button type={"text"} onClick={() => onClick()}>{loginButtonText}</Button>
-            </Col>
-            <Modal
-                visible={showLoginDialog}
-                title="登录"
-                onCancel={onCancelLogin}
-                onOk={
-                    () => {
-                        formLogin.validateFields()
-                            .then(() => {
-                                formLogin.submit()
-                                onLogin()
+        <Layout>
+            <Row style={{background: "white"}} justify="space-around" align="middle">
+                <Col span={23}>
+                    <Menu
+                        onClick={handleClick}
+                        selectedKeys={[current]}
+                        mode={"horizontal"}>
+                        <Menu.Item key="" icon={<WalletOutlined/>}>
+                            <Link to={'/'}/>
+                            我要买车
+                        </Menu.Item>
+                        <Menu.Item key="sell" icon={<TransactionOutlined/>}>
+                            <Link to={'/sell'}/>
+                            我要卖车
+                        </Menu.Item>
+                        <Menu.Item key="order" icon={<UnorderedListOutlined/>}>
+                            <Link to={'/order'}/>
+                            我的订单
+                        </Menu.Item>
+                    </Menu>
+                </Col>
+                <Col span={1}>
+                    <Button type={"text"} onClick={() => onClick()}>{loginButtonText}</Button>
+                </Col>
+                <Modal
+                    visible={showLoginDialog}
+                    title="登录"
+                    onCancel={onCancelLogin}
+                    onOk={
+                        () => {
+                            formLogin.validateFields()
+                                .then(() => {
+                                    formLogin.submit()
+                                    onLogin()
 
-                            })
+                                })
+                        }
                     }
-                }
-            >
-                <Form
-                    {...layout}
-                    form={formLogin}
-                    name="ManageSystemLoginForm"
-                    onFinish={onFinishLogin}
                 >
-                    <Form.Item
-                        label="用户名"
-                        name="username"
-                        rules={[
-                            {
-                                required: '请输入您的用户名!',
-                                pattern: /\w{4,12}/,
-                                message: '请输入用户名, 4-12位，不允许出现空格!',
-                            },
-                        ]}
+                    <Form
+                        {...layout}
+                        form={formLogin}
+                        name="ManageSystemLoginForm"
+                        onFinish={onFinishLogin}
                     >
-                        <Input/>
-                    </Form.Item>
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="密码"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入您的密码!',
-
-                            },
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>
-                </Form>
-                <Button onClick={() => {
-                    setShowLoginDialog(false)
-                    setShowRegisterDialog(true)
-                }}
-                >注册</Button>
-            </Modal>
-            <Modal
-                visible={showRegisterDialog}
-                title="注册"
-                onCancel={onCancelRegister}
-                onOk={
-                    () => {
-                        formRegister.validateFields()
-                            .then(() => {
-                                formRegister.submit()
-                                onRegister()
-                            })
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+                    </Form>
+                    <Button onClick={() => {
+                        setShowLoginDialog(false)
+                        setShowRegisterDialog(true)
+                    }}
+                    >注册</Button>
+                </Modal>
+                <Modal
+                    visible={showRegisterDialog}
+                    title="注册"
+                    onCancel={onCancelRegister}
+                    onOk={
+                        () => {
+                            formRegister.validateFields()
+                                .then(() => {
+                                    formRegister.submit()
+                                    onRegister()
+                                })
+                        }
                     }
-                }
-            >
-                <Form
-                    {...layout}
-                    form={formRegister}
-                    name="RegisterForm"
-                    onFinish={onFinishRegister}
                 >
-                    <Form.Item
-                        label="用户名"
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                pattern: /\w{4,12}/,
-                                message: '请输入用户名, 4-12位，不允许出现空格!',
-                            },
-                        ]}
+                    <Form
+                        {...layout}
+                        form={formRegister}
+                        name="RegisterForm"
+                        onFinish={onFinishRegister}
                     >
-                        <Input/>
-                    </Form.Item>
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="密码"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入密码!',
-                            },
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>
-                    <Form.Item
-                        label="手机号"
-                        name="phoneNumber"
-                        rules={[
-                            {
-                                required: true,
-                                pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/),
-                                message: '请输入手机号!',
-                            },
-                        ]}
-                    >
-                        <Input/>
-                    </Form.Item>
-                </Form>
-            </Modal>
-            <Modal title="温馨提示" visible={isModalVisibleLogin} onOk={handleOkLogin} onCancel={handleCancelLogin}>
-                <p>您确认退出登陆吗？</p>
-            </Modal>
-        </Row>
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+                        <Form.Item
+                            label="PhoneNumber"
+                            name="phoneNumber"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your phoneNumber!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </Row>
+        </Layout>
     )
 }
 

@@ -1,17 +1,18 @@
 import {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom'
 
-import $http from "../Utils";
-import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
+import $http from "../Utils/httpUtil";
+import {imgSrcPrefix} from "../Utils/GlobalVariableConfig";
 
 import {Pagination, Layout, Space, Button, Tag} from 'antd';
 import {Card} from 'antd';
 import {Row, Col} from 'antd';
 import {Content} from "antd/es/layout/layout";
+import MyFooter from "../components/Footer";
 
 const {Meta} = Card;
 
-const MyCard = ({id, name, img , price, mileage, regDate }) => {
+const MyCard = ({id, name, img, price, mileage, regDate}) => {
 
     const history = useHistory()
 
@@ -24,13 +25,22 @@ const MyCard = ({id, name, img , price, mileage, regDate }) => {
             }}
         >
             <Meta title={name}/>
-
-            <div style={{marginTop : "10px",color : "gray",fontSize : "10px"}}> {regDate? regDate['year'] : ''}年{regDate? regDate['monthValue'] : ''}月/{Math.round(mileage * 100) / 100}公里 </div>
-            <div style={{marginTop : "5px"}}> <Tag color="#4ab340">超值</Tag></div>
-            <div style={{marginTop : "10px",color : "red",fontSize : "25px"}}>
-                {price}万
-                <Button danger style={{marginInlineStart : "95px"}} size="middle" >查看详情</Button>
+            <div style={{
+                marginTop: "10px",
+                color: "gray",
+                fontSize: "10px"
+            }}> {regDate ? regDate['year'] : ''}年{regDate ? regDate['monthValue'] : ''}月/{Math.round(mileage * 100) / 100}公里
             </div>
+            <div style={{marginTop: "5px"}}><Tag color="#4ab340">超值</Tag></div>
+            <div style={{marginTop: "10px", color: "red", fontSize: "25px"}}>
+                {price}万
+            </div>
+            <Row justify={'center'}>
+                <Col>
+                    <Button danger size="middle">查看详情</Button>
+                </Col>
+            </Row>
+
 
         </Card>
     )
@@ -58,29 +68,31 @@ const HomePage = () => {
     const onChange = (page) => {
         setOffset(8 * (page - 1))
     }
-
-    if (carCount > 0) {
-        return (
-           <Layout>
-               <Content style={{ padding: '0 240px' }} >
-                   <Col offset={0}  style={{marginTop : "60px"}} >
-                       <Space direction="vertical" size="large" >
-                           <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} >
-                               {carList.map((item, index) => <Col span={6} key={index}><MyCard id={item['id']} name={item['name']} regDate={item['regDate']} mileage={item['mileage']} price={Math.round(item['price'] * 100) / 100} img={imgScrPrefix + item['images']}/></Col>)}
-                           </Row>
-                           <Row justify = "center">
-                               <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChange} total={carCount}/>
-                           </Row>
-                       </Space>
-                   </Col>
-               </Content>
-           </Layout>
-        )
-    } else {
-        return (
-            <></>
-        )
-    }
+    const showCars = () => (
+        <Layout style={{minHeight:"95vh"}}>
+            <Content style={{padding: '0 240px'}}>
+                <Col offset={0} style={{marginTop: "60px"}}>
+                    <Space direction="vertical" size="large">
+                        <Row gutter={[16, {xs: 8, sm: 16, md: 24, lg: 32}]}>
+                            {carList.map((item, index) => <Col span={6} key={index}>
+                                <MyCard id={item['id']}
+                                        name={item['name']}
+                                        regDate={item['regDate']}
+                                        mileage={item['mileage']}
+                                        price={Math.round(item['price'] * 100) / 100}
+                                        img={imgSrcPrefix + item['images']}/></Col>)}
+                        </Row>
+                        <Row justify="center">
+                            <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChange}
+                                        total={carCount}/>
+                        </Row>
+                    </Space>
+                </Col>
+            </Content>
+            <MyFooter/>
+        </Layout>
+    )
+    return carCount > 0 ? showCars() : <></>
 }
 
 export default HomePage

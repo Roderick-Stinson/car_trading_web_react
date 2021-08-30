@@ -5,12 +5,13 @@ import {Row, Col} from 'antd';
 
 import {useEffect, useState} from "react";
 import {Link, useParams} from 'react-router-dom'
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 
 import CarSwiper from "../components/Swiper";
 import CarCard from "../components/CarInfoCard";
+import MyFooter from "../components/Footer";
 
-import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
+import {imgSrcPrefix} from "../Utils/GlobalVariableConfig";
 
 const {Content} = Layout
 
@@ -25,15 +26,15 @@ const CarInfo = () => {
             .then(res => {
                 setCarData(res.data)
                 res.data['images'].forEach(img =>
-                    imagesSrc.push(imgScrPrefix + img)
+                    imagesSrc.push(imgSrcPrefix + img)
                 )
                 setImages(imagesSrc)
             })
         // eslint-disable-next-line
     }, [id])
     return (
-        <Layout>
-            <Layout>
+        <Layout style={{minHeight:"95vh"}}>
+            <Layout style={{display:"flex"}}>
                 <Content>
                     <Row>
                         <Col span={24} justify="center">
@@ -64,6 +65,7 @@ const CarInfo = () => {
                     </Row>
                 </Content>
             </Layout>
+            <MyFooter/>
         </Layout>
     )
 }

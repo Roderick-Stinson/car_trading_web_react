@@ -1,9 +1,9 @@
 import {List, Button, Space, message, Popconfirm} from 'antd';
 import Layout, {Content} from "antd/es/layout/layout";
 import {DeleteOutlined, FileSearchOutlined} from '@ant-design/icons';
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 import {useEffect, useState} from "react";
-import {imgScrPrefix} from "../Utils/GlobalVariableConfig";
+import {imgSrcPrefix} from "../Utils/GlobalVariableConfig";
 import storage from "sweet-storage";
 import {useHistory} from "react-router-dom";
 
@@ -24,7 +24,7 @@ const OrderList = () => {
                             key: item['car']['name'],
                             id: item['id'],
                             carId: item['carId'],
-                            imgSrc: imgScrPrefix + item['car']['images'][0]
+                            imgSrc: imgSrcPrefix + item['car']['images'][0]
                         })
                     })
                     setData(test)

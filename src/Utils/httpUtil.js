@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {setTrue} from "./GlobalVariableConfig";
+import storage from "sweet-storage";
 
 const $http = axios.create({
     baseURL: '',
@@ -9,8 +10,8 @@ const $http = axios.create({
 // 添加请求拦截器
 $http.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-    if (localStorage.getItem('Authorization')) {
-        config.headers['Authorization'] = localStorage.getItem('Authorization')
+    if (storage.get('Authorization')) {
+        config.headers['Authorization'] = storage.get('Authorization')
         setTrue()
     }
     return config;

@@ -1,5 +1,5 @@
 import {Form, Input, Button, Checkbox, Modal} from 'antd';
-import $http from "../Utils";
+import $http from "../Utils/httpUtil";
 import {useDispatch} from "react-redux";
 import {setToken} from '../reducer/TokenReducer'
 import {useHistory} from "react-router-dom";
