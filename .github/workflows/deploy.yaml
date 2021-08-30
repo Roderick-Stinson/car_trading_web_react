@@ -70,4 +70,4 @@ jobs:
             docker rmi -f $(docker images -q)
             docker pull chivalryq/mshd-sc:$SHA
             docker pull chivalryq/mshd:$SHA
-            docker run -d  -p 80:3000  chivalryq/mshd:$SHA
+            docker run -d -p 80:3000 chivalryq/car_trading_web_react:$SHA
