@@ -41,7 +41,7 @@ const SellCar = () => {
 
     return (
         <div>
-            <Card style={{marginTop: '50px',width: 900,textAlign:'center',marginLeft: '500px' }} title={"卖车流程"}><StepSellCar></StepSellCar></Card>
+            <Card style={{marginTop: '50px',width: 900,textAlign:'center',marginLeft: '500px' }} title={"卖车流程"}><StepSellCar/></Card>
             <Card style={{width: 900 , marginTop: '20px',marginLeft: '500px',textAlign:'center' }} title={"极速卖车"}>
                 <Space direction="vertical" size="middle">
                     <Button type="primary" style={{width:300}}  onClick={showModal}>我要卖车</Button>
