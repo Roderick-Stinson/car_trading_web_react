@@ -68,4 +68,4 @@ jobs:
             docker stop ui
             docker rm -f ui
             docker rmi -f ui
-            docker run -d -p 3001:3000 chivalryq/car_trading_web_react:$SHA --name=ui
+            docker run -d -p 3001:3000 --name=ui chivalryq/car_trading_web_react:$SHA --name=ui
