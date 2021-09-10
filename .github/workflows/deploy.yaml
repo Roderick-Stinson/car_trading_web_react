@@ -60,6 +60,7 @@ jobs:
         with:
           envs: IMANGE_NAME,SHA
 
+
           host: ${{ secrets.HOST }} # 服务器ip
           username: root
           password: ${{ secrets.HOST_PASSWORD }} # 服务器登录密码
